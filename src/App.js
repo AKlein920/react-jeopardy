@@ -21,9 +21,11 @@ class App extends Component {
     }
   }
   async componentDidMount() {
+    const { numberOfCategories } = this.state;
+
     const baseUrl = `http://jservice.io/api` // save this in context
     // get categories
-    const categoriesUrl = `${baseUrl}/categories?count=5`
+    const categoriesUrl = `${baseUrl}/categories?count=${numberOfCategories}`
     const categoriesResult = await axios.get(categoriesUrl);
     const categories = categoriesResult.data;
     // this.setState({ categories });
@@ -39,7 +41,17 @@ class App extends Component {
         })
       });
 
-      this.setState({ categoriesAndClues: helperObjCategory, categories, })
+      // place daily double at a random clue within random category
+      const randomCategoriesIndex = this.getRandomIndex(categories.length)
+      const randomCategory = helperObjCategory[categories[randomCategoriesIndex].id]
+      const randomClueIndex = this.getRandomIndex(Object.keys(randomCategory).length);
+      const randomClueId = Object.keys(randomCategory)[randomClueIndex];
+      const randomClue = randomCategory[randomClueId];
+
+      randomClue.isDailyDouble = true;
+      console.log(randomClue)
+
+      this.setState({ categoriesAndClues: helperObjCategory, categories })
     }
     formatCategoriesAndClues();
   }
@@ -48,6 +60,10 @@ class App extends Component {
     for (let index = 0; index < array.length; index++) {
       await callback(array[index], index, array);
     }
+  }
+
+  getRandomIndex = (max) => {
+    return Math.floor(Math.random() * Math.floor(max));
   }
 
   handleClueSelection = (domEl, clue) => {

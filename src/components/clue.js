@@ -7,6 +7,7 @@ const Clue = ({ handleClueDone, selectedClue }) => {
 
     return (
         <>
+            {selectedClue.isDailyDouble && <h1>DAILY DOUBLE!</h1>}
             <div style={{ height: '67vh', width: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <h1>{isShowingAnswer ? selectedClue.answer : selectedClue.question}</h1>
             </div>
