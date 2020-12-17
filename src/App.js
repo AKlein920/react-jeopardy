@@ -50,10 +50,13 @@ class App extends Component {
     }
   }
 
-  handleClueSelection = (clue) => {
-    console.log('select clue')
-    console.log(clue)
-    this.setState({ selectedClue: clue, isDisplayingClue: true })
+  handleClueSelection = (domEl, clue) => {
+    const { categoriesAndClues } = this.state;
+
+    const categoriesAndCluesCopy = { ...categoriesAndClues }
+    categoriesAndCluesCopy[clue.category.id][clue.id].selected = true;
+
+    this.setState({ selectedClue: clue, isDisplayingClue: true, categoriesAndClues: categoriesAndCluesCopy })
   }
 
   handleClueDone = () => {

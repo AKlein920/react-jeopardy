@@ -1,3 +1,11 @@
 body {
   font-family: 'Roboto'
 }
+
+.clue {
+  background-color: blue
+}
+
+.selected {
+  background-color: #0000ff57
+}

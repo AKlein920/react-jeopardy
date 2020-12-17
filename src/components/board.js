@@ -19,8 +19,8 @@ const Board = ({ categories, categoriesAndClues, handleClueSelection, numberOfCl
                             {clues.map((clue, index) => {
                                 if (index < numberOfClues) {
                                     return (
-                                        <Grid item key={clue.id} onClick={() => handleClueSelection(clue)} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '6em', width: '100%', border: '1px solid #000000', cursor: 'pointer' }}>
-                                            <span>{`$${clue.value}`}</span>
+                                        <Grid item key={clue.id} className={clue.selected ? 'selected' : 'clue'} onClick={(e) => handleClueSelection(e.target, clue)} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '6em', width: '100%', border: '1px solid #000000', cursor: 'pointer' }}>
+                                            <h2 style={{ color: clue.selected ? 'black' : 'white' }}>{`$${clue.value}`}</h2>
                                         </Grid>
                                     )
                                 }
