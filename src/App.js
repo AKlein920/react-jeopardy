@@ -39,6 +39,8 @@ class App extends Component {
         <TextField id="numberOfCategories" type="number" label="Number of categories" value={numberOfCategories} onChange={e => this.handleTextFieldChange(e)} />
         <TextField id="numberOfClues" type="number" label="Number of clues per category" value={numberOfClues} onChange={e => this.handleTextFieldChange(e)} />
         <Button variant="contained" color="primary">Reset</Button>
+
+        <h3>JEOPARDY!</h3>
         <Board categories={categories} numberOfClues={numberOfClues} />
       </Container>
     )
