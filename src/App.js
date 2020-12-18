@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 
 import Board from './components/board';
 import Clue from './components/clue';
+import ResetConfirmation from './components/resetConfirmation';
 
 class App extends Component {
   constructor() {
@@ -18,6 +19,7 @@ class App extends Component {
       numberOfCategories: 5,
       numberOfClues: 5,
       isDisplayingClue: false,
+      isResetConfirmationOpen: false,
       offset: 0,
       roundsPlayed: 0,
       selectedClue: {},
@@ -54,6 +56,12 @@ class App extends Component {
     this.setState({ isDisplayingClue: false });
   };
 
+  handleResetConfirmationOpen = () => {
+    const { isResetConfirmationOpen } = this.state;
+
+    this.setState({ isResetConfirmationOpen: !isResetConfirmationOpen });
+  };
+
   handleTextFieldChange = (e) => {
     console.log(e.target);
     console.log(e.target.value);
@@ -69,7 +77,6 @@ class App extends Component {
     const randomClue = randomCategory[randomClueId];
 
     randomClue.isDailyDouble = true;
-    console.log(randomClue);
   };
 
   resetGame = async () => {
@@ -104,13 +111,14 @@ class App extends Component {
   };
 
   render() {
-    const { categories, categoriesAndClues, isDisplayingClue, numberOfCategories, numberOfClues, selectedClue } = this.state;
+    const { categories, categoriesAndClues, isDisplayingClue, isResetConfirmationOpen, numberOfCategories, numberOfClues, selectedClue } = this.state;
 
     return (
       <Container>
+        <ResetConfirmation open={isResetConfirmationOpen} handleClose={this.handleResetConfirmationOpen} resetGame={this.resetGame} />
         <TextField id="numberOfCategories" type="number" label="Number of categories" value={numberOfCategories} onChange={e => this.handleTextFieldChange(e)} />
         <TextField id="numberOfClues" type="number" label="Number of clues per category" value={numberOfClues} onChange={e => this.handleTextFieldChange(e)} />
-        <Button variant="contained" color="primary" onClick={this.resetGame}>Reset</Button>
+        <Button variant="contained" color="primary" onClick={this.handleResetConfirmationOpen}>Reset</Button>
 
         <h3>JEOPARDY!</h3>
 
